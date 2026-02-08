@@ -182,6 +182,7 @@ class ConfigBd():
                 ('carlos.rivas@sistema.com', 'password456', 'Carlos', 'Rivas', 'ventas', 1),
                 ('lucia.perez@sistema.com', 'password678', 'Lucia', 'Perez', 'ventas', 1),
                 ('marco.diaz@sistema.com', 'password901', 'Marco', 'Diaz', 'admin', 0),
+                ('angelo.flores@sistema.com', '123456', 'Angelo', 'Flores', 'ventas', 1),
             ]
             
             cursor.executemany('''

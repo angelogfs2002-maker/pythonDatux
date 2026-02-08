@@ -1,4 +1,5 @@
 
+from datetime import datetime
 from sqlite3 import Connection
 from config.email import EmailService
 # llama a la libreria y trae su objecto connection
@@ -30,10 +31,17 @@ def Login(email:str, password:str, conn:Connection):
         
     except Exception as e:
         print(e)
-def WelcomeUser(email:str,emailService:EmailService):
+def WelcomeUser(email: str, emailService: EmailService):
     try:
-        emailService.send_email(email,"Bienvenido",f"Bienvenido {email}")
+        subject = "Acceso al Sistema Inmobiliario DATUX"
+        message = (
+            f"Hola {email},\n\n"
+            f"Tu inicio de sesión fue exitoso.\n"
+            f"Fecha y hora: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n\n"
+            "DATUX - Sistema Inmobiliario"
+        )
+        emailService.send_email(email, subject, message)
     except Exception as e:
-        print("e",e)
+        print("e", e)
     
 #marco.diaz@sistema.com

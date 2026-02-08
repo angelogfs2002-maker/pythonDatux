@@ -28,6 +28,7 @@
 # Clases :Usuarios , Clientes
 #  Fx : metodos de las clases
 # caracteristicas o atributos : atributos
+from servicio.inmobiliario_service import menu_inmobiliario
 from rich.console import Console
 from rich.panel import Panel
 from rich.table import Table
@@ -87,7 +88,7 @@ def getMenu(conn:Connection):
                 if type_user == "admin":
                     getMenuAdmin()
                 elif type_user == "ventas":
-                    getMenuSale()
+                    getMenuSale(conn, usuario, emailService)
                     
             else:
                 console.print("\n[bold red]Usuario o contraseña incorrectos[/bold red]")
@@ -131,7 +132,7 @@ def getMenuAdmin():
             console.input("Presione Enter para continuar...")
             pass
 
-def getMenuSale():
+def getMenuSale(conn, email_usuario=None, email_service=None):
     """Menú para personal de ventas"""
     while True:
         console.clear()
@@ -151,19 +152,22 @@ def getMenuSale():
         table.add_row("2", "Registrar Cliente")
         table.add_row("3", "Nueva Venta")
         table.add_row("4", "Mis Ventas")
+        table.add_row("5", "Sistema Inmobiliario (TRX IN)")
         table.add_row("0", "Cerrar Sesión")
         
         console.print(table)
         
-        opcion = Prompt.ask("Seleccione una opción", choices=["0", "1", "2", "3", "4"])
+        opcion = Prompt.ask("Seleccione una opción", choices=["0", "1", "2", "3", "4", "5"])
         
         if opcion == "0":
             console.print("\n[yellow]Cerrando sesión...[/yellow]")
             break
+        elif opcion == "5":
+            menu_inmobiliario(conn, email_usuario, email_service)
+
         else:
             console.print(f"\n[bold blue]Función pendiente de implementar: Opción {opcion}[/bold blue]")
             console.input("Presione Enter para continuar...")
-            pass
 
 if __name__ == "__main__":
     try:

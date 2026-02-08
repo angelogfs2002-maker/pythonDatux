@@ -1,0 +1,135 @@
+productos = []  # Colección global de productos
+
+
+def f1():
+    """Opción 1: Sumar 2 números"""
+    try:
+        a = float(input("Ingresa el primer número: "))
+        b = float(input("Ingresa el segundo número: "))
+        print(f"Resultado: {a} + {b} = {a + b}")
+    except ValueError:
+        print("Error: Debes ingresar números válidos.")
+
+
+def f2():
+    """Opción 2: Crear una colección de productos para un mercado"""
+    global productos
+    productos = []
+
+    try:
+        n = int(input("¿Cuántos productos deseas registrar? "))
+        if n <= 0:
+            print("Debes ingresar una cantidad mayor a 0.")
+            return
+    except ValueError:
+        print("Error: Ingresa un número entero.")
+        return
+
+    for i in range(n):
+        print(f"\nProducto #{i + 1}")
+        nombre = input("Nombre: ").strip()
+        if not nombre:
+            print("Nombre vacío. Se omitirá este producto.")
+            continue
+
+        try:
+            precio = float(input("Precio: "))
+            if precio < 0:
+                print("El precio no puede ser negativo. Se omitirá.")
+                continue
+        except ValueError:
+            print("Precio inválido. Se omitirá.")
+            continue
+
+        try:
+            stock = int(input("Stock: "))
+            if stock < 0:
+                print("El stock no puede ser negativo. Se omitirá.")
+                continue
+        except ValueError:
+            print("Stock inválido. Se omitirá.")
+            continue
+
+        productos.append({"nombre": nombre, "precio": precio, "stock": stock})
+
+    print("\nColección creada/actualizada.")
+    print(f"Total productos registrados: {len(productos)}")
+
+
+def f3():
+    """Opción 3: Agregar un nuevo producto a la colección"""
+    nombre = input("Nombre del producto: ").strip()
+    if not nombre:
+        print("Error: el nombre no puede estar vacío.")
+        return
+
+    try:
+        precio = float(input("Precio: "))
+        if precio < 0:
+            print("Error: el precio no puede ser negativo.")
+            return
+    except ValueError:
+        print("Error: precio inválido.")
+        return
+
+    try:
+        stock = int(input("Stock: "))
+        if stock < 0:
+            print("Error: el stock no puede ser negativo.")
+            return
+    except ValueError:
+        print("Error: stock inválido.")
+        return
+
+    productos.append({"nombre": nombre, "precio": precio, "stock": stock})
+    print("Producto agregado correctamente.")
+
+
+def f4():
+    """Opción 4: Mostrar el producto de precio más bajo"""
+    if not productos:
+        print("No hay productos en la colección. Crea o agrega productos primero.")
+        return
+
+    minimo = min(productos, key=lambda p: p["precio"])
+
+    print("\nProducto de precio más bajo:")
+    print(f"Nombre: {minimo['nombre']}")
+    print(f"Precio: {minimo['precio']}")
+    print(f"Stock: {minimo['stock']}")
+
+
+def f5():
+    """Opción 5: Salir"""
+    print("Saliendo del programa... ¡Hasta luego!")
+
+
+def menu():
+    while True:
+        print("\n========= MENÚ =========")
+        print("1) Sumar 2 números")
+        print("2) Crear colección de productos")
+        print("3) Agregar nuevo producto")
+        print("4) Mostrar producto de precio más bajo")
+        print("5) Salir")
+        print("========================")
+
+        opcion = input("Elige una opción (1-5): ").strip()
+
+        if opcion == "1":
+            f1()
+        elif opcion == "2":
+            f2()
+        elif opcion == "3":
+            f3()
+        elif opcion == "4":
+            f4()
+        elif opcion == "5":
+            f5()
+            break
+        else:
+            print("Opción inválida. Intenta de nuevo.")
+
+
+if __name__ == "__main__":
+    menu()
